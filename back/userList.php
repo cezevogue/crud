@@ -1,4 +1,11 @@
 <?php  require_once '../config/function.php';
+if (!admin()){
+
+    header('location:../security/login.php');
+    exit();
+
+}
+
         require_once '../inc/header.inc.php';
 
         $users=execute("SELECT * FROM user")->fetchAll(PDO::FETCH_ASSOC);

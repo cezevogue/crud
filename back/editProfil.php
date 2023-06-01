@@ -1,4 +1,12 @@
 <?php require_once '../config/function.php';
+
+if (!admin()){
+
+    header('location:../security/login.php');
+    exit();
+
+}
+
 require_once '../inc/header.inc.php';
 
 

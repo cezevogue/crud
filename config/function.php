@@ -69,3 +69,27 @@ function password_strength_check($password, $min_len = 6, $max_len = 15, $req_di
         return FALSE;
     }
 }
+
+function connect()
+{
+    if (isset($_SESSION['user'])){
+
+        return true;
+    }else{
+
+        return false;
+    }
+}
+
+function admin()
+{
+    if (connect() && $_SESSION['user']['role']=='ROLE_ADMIN'){
+
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+
