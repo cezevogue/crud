@@ -14,8 +14,9 @@ function execute(string $requete, array $data=[],$lastId=null)
     foreach ($data as $marqueur => $valeur){
         // ici on réaffecte à notre tableau $data
         // les nouvelles valeurs échappées et sans espaces pour chaque tour de boucle
+        if (gettype($valeur)!=='object'):
         $data[$marqueur]=trim(htmlspecialchars($valeur));
-
+       endif;
     }
     $pdo=Db::getDB(); // connexion à la BDD provenant de Db.php
     $resultat= $pdo->prepare($requete);// on prépare la requête envoyée avec marqueur (:marqueur)

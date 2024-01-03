@@ -1,24 +1,36 @@
 <?php
 require_once '../config/function.php';
 
-require_once '../inc/header.inc.php';
+require_once 'inc/header.inc.php';
 
 
 if (empty($_POST['detail']))
 {
    $error=true;
+  $message="champs obligatoire";
+}
+
+
+
+    $data=['detail'=>new DateTime()];
+
+if (!$error){
+
+    execute("INSERT INTO error (detail, date) VALUES (NOW(),:detail, )", $data);
+    header('location:./debug.php');
+    die();
 
 }
 
 
 
-    $data=['detail'=>new DateTime(), 'date'=>$_POST['detail']];
-
-    execute("INSERT INTO error (detail, date) VALUES (:detail, :date)", $data);
+$datas=execute("SELECT * FROM errors")->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$datas=execute("SELECT * FROM errors");
+execute("UPDATE errors SET status=:status WHERE id=:id", ['status'=>1]);
+header('location:./');
+die();
 
 
 
@@ -39,16 +51,12 @@ $datas=execute("SELECT * FROM errors");
 
 <form  action="">
     <input type="hidden" name="id" value="">
-    <textarea name="detail" id="" cols="30" rows="10"></textarea>
+    <textarea name="details" id="" cols="30" rows="10"></textarea>
 
-    <p><?=  $message ?? ''; ?></p>
+    <p><?=  $message ; ?></p>
     <button type="submit">Valider</button>
 </form>
-
-
-<?php
-foreach ($data as $content):?>
-    <table class="table">
+  <table class="table">
         <thead>
         <tr>
             <th>detail</th>
@@ -58,14 +66,18 @@ foreach ($data as $content):?>
         </thead>
         <tbody>
 
+<?php
+
+
+        foreach ($data as $content):?>
         <tr>
-            <td></td>
-            <td></td>
+            <td><?php  $content['detail'] ?></td>
+            <td><?php  date_format(new DateTime($content['date']), 'd-m-Y H:i:s')   ?></td>
             <td>
                 <?php
-                if ($content['status']===0)
+                if ($content['status']=='0')
                 {
-                    '<a href="" class="btn btn-info">Marquer résolu</a>';
+                    '<a href="?id='.$content['id'].'" class="btn btn-info">Marquer résolu</a>';
 
                 }
                 ?>
@@ -73,11 +85,11 @@ foreach ($data as $content):?>
 
             </td>
         </tr>
-
+<?php endforeach;?>
         </tbody>
     </table>
 
 <?php
-endforeach;
+
 
 require_once '../inc/footer.inc.php'; ?>
