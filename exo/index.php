@@ -65,7 +65,7 @@ require_once '../inc/header.inc.php';
 <p>En cliquant sur le liens ci-dessous, un traitement doit être généré. Le 1er créer un tableau $user qui va avoir pour indices 'nom','prenom','email', 'tel' et pour valeur après les => des informations correspondantes.  Charger ce tableau dans la session sur une entrée 'user'. Si il y a présence d'une entrée 'user' en session afficher la card si dessous remplie de ses informations</p>
     <a href="?action=profil" class="btn btn-secondary">voir mon profil</a>
 
-    <?php     if (isset($_SESSION['user'])):           ?>
+
     <div class="card w-50 mx-auto">
 
         <div class="text-center card-title">nom: </div>
@@ -73,7 +73,7 @@ require_once '../inc/header.inc.php';
         <div class="text-center card-title">email: </div>
         <div class="text-center card-title">tel: </div>
     </div>
-    <?php     endif;           ?>
+
 
 
 <h2>Exercice 5: Charger une variable et la faire transiter dans une autre page avec $_GET</h2>
