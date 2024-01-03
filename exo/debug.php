@@ -28,7 +28,7 @@ $datas=execute("SELECT * FROM errors")->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-execute("UPDATE errors SET status=:status WHERE id=:id", ['status'=>1]);
+execute("UPDATE FROM errors SET status=:status WHERE id=:id", ['status'=>1]);
 header('location:./');
 die();
 
